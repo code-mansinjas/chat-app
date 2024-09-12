@@ -15,16 +15,7 @@ const GlobalErrorHandler = (err, req, res, next) => {
     })
 }
 
-const ErrorWrapper = (fun) => {
-    return (req, res, next) => {
-        try {
-            fun(req, res, next)
-        } catch (err) {
-            console.log("ErrorWrapper ==>>> \n")
-            next(err)
-        }
-    }
-}
+const ErrorWrapper = fn => (...args) => fn(...args).catch(args[2]);
 
 
 module.exports = {

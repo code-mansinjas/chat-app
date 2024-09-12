@@ -5,7 +5,7 @@ const signIn = async ({ username, password, confirmPassword, gender }) => {
     if (password !== confirmPassword) {
         return { success: false, message: "Confirm Password not Matched" }
     }
-    const checkUserExist = UserModel.findOne({ username })
+    const checkUserExist = await UserModel.findOne({ username })
     if (checkUserExist) {
         return { success: false, message: "Username Already Exist" }
     }

@@ -10,7 +10,7 @@ let MONGO_DB_URI = process.env.MONGO_DB_URI
 
 const ConnectMongoDB = async () => {
     try {
-        await mongoose.connect(MONGO_DB_URI)
+        await mongoose.connect(MONGO_DB_URI,{ dbName: MONGO_DB_NAME || "chat-app" })
         console.log(`Connected to MongoDB`)
     } catch (err) {
         console.log(`Error While Connecting MongoDB \n${err}`)

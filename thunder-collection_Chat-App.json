@@ -1,0 +1,152 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Chat-App",
+    "collectionId": "380f34ab-6add-423f-afe3-d26db9937d0e",
+    "dateExported": "2024-09-12T21:15:38.327Z",
+    "version": "1.2",
+    "folders": [
+        {
+            "_id": "0a51f00b-5210-4b67-b203-506154b9a179",
+            "name": "Auth",
+            "containerId": "",
+            "created": "2024-09-11T19:57:20.242Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "75e974d7-1252-43ad-89e5-45ce3b65ceaa",
+            "name": "Messages",
+            "containerId": "",
+            "created": "2024-09-12T20:20:43.600Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "f211c552-c19f-4a1c-b1f6-71b1fcd46641",
+            "name": "User",
+            "containerId": "",
+            "created": "2024-09-12T21:06:58.967Z",
+            "sortNum": 30000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "81f2f4e5-d85b-4f4a-bc2b-16cfc386571b",
+            "colId": "380f34ab-6add-423f-afe3-d26db9937d0e",
+            "containerId": "0a51f00b-5210-4b67-b203-506154b9a179",
+            "name": "Login",
+            "url": "{{api_url}}/auth/login",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-09-11T19:57:25.945Z",
+            "modified": "2024-09-12T18:30:16.230Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\":\"mandeep\",\n  \"password\":\"12345678\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "0296e786-628c-43ab-9e77-7229295bd7c8",
+            "colId": "380f34ab-6add-423f-afe3-d26db9937d0e",
+            "containerId": "0a51f00b-5210-4b67-b203-506154b9a179",
+            "name": "SignIn",
+            "url": "{{api_url}}/auth/signin",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-09-11T19:57:39.678Z",
+            "modified": "2024-09-12T21:08:25.074Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\":\"user\",\n  \"password\":\"12345678\",\n  \"confirmPassword\":\"12345678\",\n  \"gender\":\"male\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "12b313c6-92c4-433c-b02b-47a144e69d92",
+            "colId": "380f34ab-6add-423f-afe3-d26db9937d0e",
+            "containerId": "0a51f00b-5210-4b67-b203-506154b9a179",
+            "name": "Logout",
+            "url": "{{api_url}}/auth/logout",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2024-09-12T18:41:26.073Z",
+            "modified": "2024-09-12T20:21:32.411Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZTM0N2FjYTgwZDI1ZTYyZDk0ZDkzZCIsInVzZXJuYW1lIjoibWFuZGVlcCIsImlhdCI6MTcyNjE3MTA2MCwiZXhwIjoxNzI2MjU3NDYwfQ.1KuX5xmgnYOZWx317QBsBye2259DpzfINquZpOVDAj4"
+            }
+        },
+        {
+            "_id": "8a4abac2-54fb-4722-8b11-12f0f00a3d4b",
+            "colId": "380f34ab-6add-423f-afe3-d26db9937d0e",
+            "containerId": "75e974d7-1252-43ad-89e5-45ce3b65ceaa",
+            "name": "Send Message",
+            "url": "{{api_url}}/message/send/66e35024dcc3cd9d5f2078cb",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-09-12T20:20:56.757Z",
+            "modified": "2024-09-12T20:52:53.408Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"message\":\"Sample\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZTM0N2FjYTgwZDI1ZTYyZDk0ZDkzZCIsInVzZXJuYW1lIjoibWFuZGVlcCIsImlhdCI6MTcyNjE3MTA2MCwiZXhwIjoxNzI2MjU3NDYwfQ.1KuX5xmgnYOZWx317QBsBye2259DpzfINquZpOVDAj4"
+            }
+        },
+        {
+            "_id": "948acc01-38df-4f4b-a2e9-e6e17288df3d",
+            "colId": "380f34ab-6add-423f-afe3-d26db9937d0e",
+            "containerId": "75e974d7-1252-43ad-89e5-45ce3b65ceaa",
+            "name": "Get Message",
+            "url": "{{api_url}}/message/get/66e35024dcc3cd9d5f2078cb",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2024-09-12T20:48:03.919Z",
+            "modified": "2024-09-12T20:48:26.986Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZTM0N2FjYTgwZDI1ZTYyZDk0ZDkzZCIsInVzZXJuYW1lIjoibWFuZGVlcCIsImlhdCI6MTcyNjE3MTA2MCwiZXhwIjoxNzI2MjU3NDYwfQ.1KuX5xmgnYOZWx317QBsBye2259DpzfINquZpOVDAj4"
+            }
+        },
+        {
+            "_id": "cffa3f88-813e-4bff-8553-9b55f6bc741c",
+            "colId": "380f34ab-6add-423f-afe3-d26db9937d0e",
+            "containerId": "f211c552-c19f-4a1c-b1f6-71b1fcd46641",
+            "name": "Get All User Except Logged User",
+            "url": "{{api_url}}/user/except-logged",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2024-09-12T21:07:20.319Z",
+            "modified": "2024-09-12T21:09:17.411Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZTM0N2FjYTgwZDI1ZTYyZDk0ZDkzZCIsInVzZXJuYW1lIjoibWFuZGVlcCIsImlhdCI6MTcyNjE3MTA2MCwiZXhwIjoxNzI2MjU3NDYwfQ.1KuX5xmgnYOZWx317QBsBye2259DpzfINquZpOVDAj4"
+            }
+        },
+        {
+            "_id": "59b51820-5dea-42a9-830c-d3a458f589c3",
+            "colId": "380f34ab-6add-423f-afe3-d26db9937d0e",
+            "containerId": "f211c552-c19f-4a1c-b1f6-71b1fcd46641",
+            "name": "Get Logged user",
+            "url": "{{api_url}}/user/logged",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2024-09-12T21:13:32.638Z",
+            "modified": "2024-09-12T21:14:06.474Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZTM0N2FjYTgwZDI1ZTYyZDk0ZDkzZCIsInVzZXJuYW1lIjoibWFuZGVlcCIsImlhdCI6MTcyNjE3MTA2MCwiZXhwIjoxNzI2MjU3NDYwfQ.1KuX5xmgnYOZWx317QBsBye2259DpzfINquZpOVDAj4"
+            }
+        }
+    ],
+    "ref": "RJA_3kuVcMca9fQMN2R_gZSwmRFZkGprCK13tVY5wlRpye5SH8XkzDueHvM_wFa5G1rsOxf3ACQT3V4597M8Zw"
+}
