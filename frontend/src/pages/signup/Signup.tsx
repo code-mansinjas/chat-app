@@ -1,14 +1,12 @@
 import { useRef, useState } from "react";
-
-interface formDataInterface {
-  username: string | undefined;
-  password: string | undefined;
-  confirmPassword: string | undefined;
-  gender: string | undefined;
-}
+import { Link } from "react-router-dom";
+import useSignUp from "../../hooks/useSignUp";
+import { UserSignInInterface } from "../../interfaces/common";
+import { ImSpinner3 } from "react-icons/im";
 
 const Signup = () => {
-  const [formData, SetFormData] = useState<formDataInterface>({
+  const { loading, signUp } = useSignUp()
+  const [formData, SetFormData] = useState<UserSignInInterface>({
     username: "",
     password: "",
     confirmPassword: "",
@@ -22,33 +20,14 @@ const Signup = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (
-      !(
-        username.current &&
-        password.current &&
-        confirmPassword.current &&
-        gender.current
-      )
-    ) {
-      return console.error({
-        confirmPassword: confirmPassword.current,
-        gender: gender.current,
-        password: password.current,
-        username: username.current,
-      });
+    const data: UserSignInInterface = {
+      confirmPassword: confirmPassword.current || undefined,
+      gender: gender.current || "male",
+      password: password.current || undefined,
+      username: username.current || undefined,
     }
-    SetFormData({
-      confirmPassword: confirmPassword.current,
-      gender: gender.current,
-      password: password.current,
-      username: username.current,
-    });
-    console.table({
-      confirmPassword: confirmPassword.current,
-      gender: gender.current,
-      password: password.current,
-      username: username.current,
-    });
+    SetFormData(data);
+    signUp(data)
   };
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
@@ -141,13 +120,13 @@ const Signup = () => {
             </div>
           </label>
           <button type="submit" className="btn btn-outline btn-primary">
-            Sign In
+          { loading ? <ImSpinner3/> : "Sign In"}
           </button>
           <div className="">
             Already have an account ?{" "}
-            <a href="" className="text-blue-800">
+            <Link to={"/login"} className="text-blue-800">
               Login
-            </a>
+            </Link>
           </div>
         </form>
       </div>

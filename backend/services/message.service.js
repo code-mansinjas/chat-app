@@ -16,9 +16,9 @@ const sendMessage = async ({ senderId, receiverId, message }) => {
     }
 
     await conversation.save()
-    await newMessage.save()
+    const messageSaved = await newMessage.save()
 
-    return { success: true, message: "Message Sended" }
+    return { success: true, message: "Message Sended", data: messageSaved }
 }
 
 const getMessage = async ({ senderId, receiverId }) => {

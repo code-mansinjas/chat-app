@@ -1,27 +1,35 @@
-import React, { useRef, useState } from "react";
-
-const ListData = [
-  { profile: "https://avatar.iran.liara.run/public/boy", username: "Sample one" },
-  { profile: "https://avatar.iran.liara.run/public/boy", username: "Sample Two" },
-  { profile: "https://avatar.iran.liara.run/public/boy", username: "Sample Three" },
-  { profile: "https://avatar.iran.liara.run/public/boy", username: "Sample Four" },
-  { profile: "https://avatar.iran.liara.run/public/boy", username: "Sample one" },
-  { profile: "https://avatar.iran.liara.run/public/boy", username: "Sample Two" },
-  { profile: "https://avatar.iran.liara.run/public/boy", username: "Sample Three" },
-  { profile: "https://avatar.iran.liara.run/public/boy", username: "Sample Four" },
-];
+import { useEffect, useState } from "react";
+import useGetConversation from "../../hooks/useConversation";
+import { ConversationInterface } from "../../interfaces/common";
+import useConversation from "../../zustand/useConversation";
 
 const Sidebar = () => {
+  const { conversations, loading } = useGetConversation();
+  const [ filteredConversation, SetConversation ] = useState(conversations)
+  const [searchData, SetSearchData] = useState("")
+  
+
+  useEffect(()=>{
+    if(searchData.length >= 3){
+      SetConversation(conversations.filter((c)=>c.username.trim().includes(searchData.trim())))
+    }else{
+      SetConversation(conversations)
+    }
+  }, [searchData])
+
+
   return (
     <div className="w-full h-full flex flex-col gap-9 border-r border-slate-500 p-4">
-      <SearchUserInput />
-      <UserListing listData={ListData} />
+      <SearchUserInput handleSearch={SetSearchData} />
+      <UserListing conversations={filteredConversation} />
+      {loading ? (
+        <span className="loading loading-spinner mx-auto"></span>
+      ) : null}
     </div>
   );
 };
 
-const SearchUserInput = () => {
-  const [search, SetSearch] = useState("");
+const SearchUserInput = ({handleSearch}:{handleSearch : (search: string) => void}) => {
   return (
     <label className="input input-bordered flex items-center gap-2">
       <svg
@@ -34,8 +42,8 @@ const SearchUserInput = () => {
       </svg>
       <input
         type="text"
-        defaultValue={search}
-        onChange={(e) => SetSearch(e.target.value)}
+        defaultValue={""}
+        onChange={(e) => handleSearch(e.target.value)}
         className="grow"
         placeholder="Username"
       />
@@ -44,14 +52,14 @@ const SearchUserInput = () => {
 };
 
 const UserListing = ({
-  listData,
+  conversations,
 }: {
-  listData: Array<{ username: string; profile: string }>;
+  conversations: ConversationInterface[];
 }) => {
   return (
     <div className="overflow-y-auto">
-      {listData?.map((user) => (
-        <UserList userData={user} />
+      {conversations?.map((user, index) => (
+        <UserList userData={user} lastIdx={index == conversations.length - 1} />
       ))}
     </div>
   );
@@ -59,14 +67,29 @@ const UserListing = ({
 
 const UserList = ({
   userData,
+  lastIdx,
 }: {
-  userData: { username: string; profile: string };
+  userData: ConversationInterface;
+  lastIdx: boolean;
 }) => {
+  const { selectedConversation, setSelectedConversation } = useConversation();
+  const isSelected = selectedConversation?._id == userData?._id;
+
   return (
-    <div className="flex my-4 ">
-      <img className="w-10 rounded-full" src={userData?.profile} alt={userData.username} />
-      <div className="items-center flex ps-5"><h3 className="">{userData?.username}</h3></div>
-    </div>
+    <>
+      <div className={`py-2 flex my-2 ${isSelected ? "bg-sky-500" : ""}`} onClick={()=> setSelectedConversation(userData) }>
+        <img
+          className="w-10 rounded-full ms-2"
+          src={userData?.profileAvatar}
+          alt={userData.username}
+        />
+        <div className="items-center flex ps-5">
+          <h3 className="">{userData?.username}</h3>
+        </div>
+      </div>
+
+      {!lastIdx && <div className="divider my-0 py-0 h-1"></div>}
+    </>
   );
 };
 

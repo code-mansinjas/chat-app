@@ -1,12 +1,12 @@
 import { useRef, useState } from "react";
-
-interface formDataInterface {
-  username: string | undefined;
-  password: string | undefined;
-}
+import { Link } from "react-router-dom";
+import useLogin from "../../hooks/useLogin";
+import { UserloginInterface } from "../../interfaces/common";
+import { ImSpinner3 } from "react-icons/im";
 
 const Login = () => {
-  const [formData, SetFormData] = useState<formDataInterface>({
+  const { loading, login } = useLogin()
+  const [formData, SetFormData] = useState<UserloginInterface>({
     username: "",
     password: "",
   });
@@ -16,20 +16,12 @@ const Login = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!(username.current && password.current)) {
-      return console.error({
-        password: password.current,
-        username: username.current,
-      });
+    const data: UserloginInterface = {
+      password: password.current || undefined,
+      username: username.current || undefined,
     }
-    SetFormData({
-      password: password.current,
-      username: username.current,
-    });
-    console.table({
-      password: password.current,
-      username: username.current,
-    });
+    SetFormData(data);
+    login(data)
   };
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
@@ -77,13 +69,13 @@ const Login = () => {
             />
           </label>
           <button type="submit" className="btn btn-outline btn-primary">
-            Login
+            { loading ? <ImSpinner3/> : "Login"}
           </button>
           <div className="">
             If new User Please{" "}
-            <a href="" className="text-blue-800">
+            <Link to={"/sign-in"} className="text-blue-800">
               Sign In
-            </a>{" "}
+            </Link>{" "}
             first
           </div>
         </form>
