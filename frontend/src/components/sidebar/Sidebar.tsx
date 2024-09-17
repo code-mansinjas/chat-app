@@ -1,27 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useGetConversation from "../../hooks/useConversation";
 import { ConversationInterface } from "../../interfaces/common";
 import useConversation from "../../zustand/useConversation";
+import { useSocketContext } from "../../context/SocketContext";
 
 const Sidebar = () => {
   const { conversations, loading } = useGetConversation();
-  const [ filteredConversation, SetConversation ] = useState(conversations)
-  const [searchData, SetSearchData] = useState("")
-  
-
-  useEffect(()=>{
-    if(searchData.length >= 3){
-      SetConversation(conversations.filter((c)=>c.username.trim().includes(searchData.trim())))
-    }else{
-      SetConversation(conversations)
-    }
-  }, [searchData])
-
+  const [_, SetSearchData] = useState("");
 
   return (
     <div className="w-full h-full flex flex-col gap-9 border-r border-slate-500 p-4">
       <SearchUserInput handleSearch={SetSearchData} />
-      <UserListing conversations={filteredConversation} />
+      <UserListing conversations={conversations} />
       {loading ? (
         <span className="loading loading-spinner mx-auto"></span>
       ) : null}
@@ -29,7 +19,11 @@ const Sidebar = () => {
   );
 };
 
-const SearchUserInput = ({handleSearch}:{handleSearch : (search: string) => void}) => {
+const SearchUserInput = ({
+  handleSearch,
+}: {
+  handleSearch: (search: string) => void;
+}) => {
   return (
     <label className="input input-bordered flex items-center gap-2">
       <svg
@@ -74,15 +68,23 @@ const UserList = ({
 }) => {
   const { selectedConversation, setSelectedConversation } = useConversation();
   const isSelected = selectedConversation?._id == userData?._id;
+  const { onlineUser  } = useSocketContext()
+  const isOnline = onlineUser?.includes(userData._id)
 
   return (
     <>
-      <div className={`py-2 flex my-2 ${isSelected ? "bg-sky-500" : ""}`} onClick={()=> setSelectedConversation(userData) }>
+      <div
+        className={`py-2 flex my-2 ${isSelected ? "bg-sky-500" : ""}`}
+        onClick={() => setSelectedConversation(userData)}
+      >
+        <div className={` w-10 avatar ${isOnline ? "online" : ""}`}>
         <img
-          className="w-10 rounded-full ms-2"
+          className={`w-10 rounded-full ms-2`}
           src={userData?.profileAvatar}
           alt={userData.username}
         />
+        </div>
+        
         <div className="items-center flex ps-5">
           <h3 className="">{userData?.username}</h3>
         </div>

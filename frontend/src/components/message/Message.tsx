@@ -2,12 +2,14 @@ const Message = ({
     senderMessage = true,
     message,
     profileAvatar,
-    time
+    time,
+    shouldShake
   }: {
     senderMessage: boolean;
     message: string;
     profileAvatar: string;
     time: string;
+    shouldShake: boolean;
   }) => {
 
     const dateTime = new Date(time)
@@ -20,7 +22,7 @@ const Message = ({
           <img src={profileAvatar} alt="" />
         </div>
       </div>
-      <div className="chat-bubble text-white bg-blue-500">{message}</div>
+      <div className={`chat-bubble text-white bg-blue-500 ${shouldShake ? "shake" : ""} `}>{message}</div>
       <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">{timeInHHMM}</div>
     </div>
   )

@@ -5,13 +5,14 @@ import NoChatSelected from "./NoChatSelected";
 import useConversation from "../../zustand/useConversation";
 import useGetMessages from "../../hooks/useGetMessages";
 import { useAuthContext } from "../../context/AuthContext";
+import useListenMessages from "../../hooks/useListenMessages";
 
 const MessageContainer = () => {
 
   const { selectedConversation, setSelectedConversation } = useConversation()
   const { messages } = useGetMessages()
   const { authUser } = useAuthContext()
-
+  useListenMessages()
   const lastMessageRef = useRef<any>()
 
   useEffect(()=>{
@@ -45,6 +46,7 @@ const MessageContainer = () => {
                   message={chat?.message}
                   profileAvatar={chat?.receiverId == selectedConversation?._id ? selectedConversation.profileAvatar : authUser?.profileAvatar}
                   time={chat?.createdAt}
+                  shouldShake={chat?.shouldShake || false}
                 />
                 </div>
               ))

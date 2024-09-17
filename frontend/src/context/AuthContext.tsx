@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { UserSignInInterface } from "../interfaces/common";
 import useGetLoggedUser from "../hooks/useGetLoggedUser";
 
 export const AuthContext = createContext<{ authUser: any; SetAuthUser: any }>({

@@ -19,7 +19,6 @@ const authCheck = async (req, res, next) => {
         //     await RedisSet(redisKey,tokenData.accessToken)
         // } 
         const decoded = compareToken(token);
-        console.log("Token Data", decoded)
         req.decoded = decoded
         next()
     } catch (ex) {
