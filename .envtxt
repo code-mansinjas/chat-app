@@ -1,8 +1,0 @@
-NODE_ENV = development
-
-MONGO_DB_URI = mongodb://root:root@localhost:27017/
-
-RANDOM_BOY_AVATAR = https://avatar.iran.liara.run/public/boy
-RANDOM_GIRL_AVATAR = https://avatar.iran.liara.run/public/girl
-
-TOKEN_SECRETE_KEY = qazwsxedcrfvtgbyhnujmikolp
