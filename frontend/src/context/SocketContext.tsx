@@ -20,7 +20,7 @@ export const SocketContextProvider = ({ children }: { children: any }) => {
   useEffect(() => {
     const fun = () => {
       if (authUser?.isVerified || authUser?.token) {
-        const socket = io("/", {
+        const socket = io("https://chat-app-st5m.onrender.com/", {
           query: {
             userId: authUser?._id,
           },
